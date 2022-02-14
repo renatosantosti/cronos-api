@@ -1,10 +1,8 @@
 import database from '../../config/database';
 
-import database from '../../config/database';
-
 /**
  * @description: chama função correspondente no domínio e retorna resultado da listagem
- * @returns arrays de serviços
+ * @returns arrays de postagens
  */
 const listar = (req, res) => {
   return [];
@@ -19,16 +17,16 @@ const alterar = (req, res) => {
 };
 
 /**
- * @description: chama função criar do domínio e retorna serviço criado
- * @returns serviço criado
+ * @description: chama função criar do domínio e retorna postagem criado
+ * @returns postagem criado
  */
 const criar = (req, res) => {
   return modelo;
 };
 
 /**
- * @description: chama função excluir do domínio e retorna serviço excluir
- * @returns serviço excluido
+ * @description: chama função excluir do domínio e retorna postagem excluir
+ * @returns postagem excluido
  */
 const excluir = (req, res) => {
   const resultado = true;
