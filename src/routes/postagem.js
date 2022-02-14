@@ -1,10 +1,32 @@
 import express from 'express';
 
+import postagemController from '../controllers/postagem';
+
 const router = express.Router();
 
-router.get('/:id', (req, res) => {});
-router.post('/', (req, res) => {});
-router.put('/', (req, res) => {});
-router.delete('/:id', (req, res) => {});
+// Obtem a listagem de postagens
+router.get('/', (req, res) => {
+  postagemController.listar(req, res);
+});
 
-export defaut router;
+// Obtem uma postagem pelo id
+router.get('/:id', (req, res) => {
+  postagemController.obter(req, res);
+});
+
+// Cria uma nova postagem
+router.put('/', (req, res) => {
+  postagemController.criar(req, res);
+});
+
+// Altera uma postagem existente
+router.post('/', (req, res) => {
+  postagemController.alterar(req, res);
+});
+
+// Exclui a postagem com o id informado
+router.delete('/:id', (req, res) => {
+  postagemController.excluir(req, res);
+});
+
+export default router;
