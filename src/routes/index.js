@@ -4,7 +4,7 @@ import express from 'express';
 // Importa as rotas dos serviços disponíveis
 import servicosRouters from '../routes/servico';
 import postagensRouters from '../routes/postagem';
-import integrantesRouters from '../routes/integrantes';
+import integrantesRouters from '../routes/integrante';
 
 // Importa middleware de autenticação das rotas privadas
 import validarAutorizacaoAcesso from '../middleware/autenticacao';

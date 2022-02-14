@@ -7,4 +7,4 @@ router.post('/', (req, res) => {});
 router.put('/', (req, res) => {});
 router.delete('/:id', (req, res) => {});
 
-export defaut router;
+export default router;
