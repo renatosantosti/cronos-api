@@ -1,11 +1,39 @@
-import database from '../../config/database';
+import integranteDomain from '../domain/integrante';
 
 /**
  * @description: chama função correspondente no domínio e retorna resultado da listagem
  * @returns arrays de integrantes
  */
 const listar = (req, res) => {
-  return [];
+  try {
+    integranteDomain.listar(req, res).then((result) => {
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send(
+        'Erro inexperado ao tentar listar integrantes. Contate o suporte técnico!'
+      );
+  }
+};
+
+/**
+ * @description: Obtem um integrante salva
+ * @returns integrante
+ */
+const obter = (req, res) => {
+  try {
+    integranteDomain.listar(req, res).then((result) => {
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send(
+        'Erro inexperado ao tentar obter o integrante pelo id. Contate o suporte técnico!'
+      );
+  }
 };
 
 /**
@@ -13,15 +41,35 @@ const listar = (req, res) => {
  * @returns boolean se conseguiu alterar
  */
 const alterar = (req, res) => {
-  return modelo;
+  try {
+    integranteDomain.alterar(req, res).then((result) => {
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send(
+        'Erro inexperado ao tentar modificar integrante. Contate o suporte técnico!'
+      );
+  }
 };
 
 /**
- * @description: chama função criar do domínio e retorna integrante criado
+ * @description: chama função criar do domínio e retorna integrante criada
  * @returns integrante criado
  */
 const criar = (req, res) => {
-  return modelo;
+  try {
+    integranteDomain.criar(req, res).then((result) => {
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send(
+        'Erro inexperado ao tentar criar novo integrante. Contate o suporte técnico!'
+      );
+  }
 };
 
 /**
@@ -29,8 +77,17 @@ const criar = (req, res) => {
  * @returns integrante excluido
  */
 const excluir = (req, res) => {
-  const resultado = true;
-  return resultado;
+  try {
+    integranteDomain.excluir(req, res).then((result) => {
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send(
+        'Erro inexperado ao tentar excluir o integrante. Contate o suporte técnico!'
+      );
+  }
 };
 
-export default { listar, criar, alterar, excluir };
+export default { listar, obter, criar, alterar, excluir };
