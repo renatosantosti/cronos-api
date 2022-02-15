@@ -1,4 +1,4 @@
-import database from '../../config/database';
+import database from '../config/database';
 
 const prepararModelo = (dado) => {
   return dado;
@@ -56,7 +56,9 @@ const alterar = (postagem) => {
       .update(postagem)
       .then(
         (result) => {
-          resolve(prepararModelo(result));
+          result
+            ? resolve(obter(postagem.id))
+            : reject(`Não existe postagem com id: ${postagem.id}`);
         },
         (error) => {
           console.error('Erro ao atualizar a postagem =>', error);
@@ -76,8 +78,8 @@ const criar = (postagem) => {
           resolve(prepararModelo(postagem));
         },
         (error) => {
-          console.error('Erro tentar criar postagem =>', error);
-          reject('Erro ao tentar criar nova postagem:', error);
+          console.error('Erro tentar criar a postagem =>', error);
+          reject('Erro ao tentar criar nova a postagem:', error);
         }
       );
   });
@@ -87,17 +89,21 @@ const excluir = (id) => {
   return new Promise((resolve, reject) => {
     database('postagem')
       .where('id', '=', id)
-      .update({ ativo: false })
+      .update({ status: false })
       .then(
         (result) => {
-          resolve(result ?? false);
+          result
+            ? resolve(result)
+            : reject(
+                `Não foi localizada a postagem com id: ${id} para excluir!`
+              );
         },
         (error) => {
           console.error(
-            'Erro ao ao tentar excluir/desativar postagem =>',
+            'Erro ao ao tentar excluir/desativar a postagem =>',
             error
           );
-          reject('Erro ao tentar excluir/desativar postagem:', error);
+          reject('Erro ao tentar excluir/desativar a postagem:', error);
         }
       );
   });

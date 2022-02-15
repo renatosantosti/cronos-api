@@ -6,7 +6,7 @@ import integranteDomain from '../domain/integrante';
  */
 const listar = (req, res) => {
   try {
-    integranteDomain.listar(req, res).then((result) => {
+    integranteDomain.listar().then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -24,7 +24,7 @@ const listar = (req, res) => {
  */
 const obter = (req, res) => {
   try {
-    integranteDomain.listar(req, res).then((result) => {
+    integranteDomain.obter(req.params.id).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -42,7 +42,7 @@ const obter = (req, res) => {
  */
 const alterar = (req, res) => {
   try {
-    integranteDomain.alterar(req, res).then((result) => {
+    integranteDomain.alterar(req.body.integrante).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -60,7 +60,7 @@ const alterar = (req, res) => {
  */
 const criar = (req, res) => {
   try {
-    integranteDomain.criar(req, res).then((result) => {
+    integranteDomain.criar(req.body.integrante).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -78,9 +78,14 @@ const criar = (req, res) => {
  */
 const excluir = (req, res) => {
   try {
-    integranteDomain.excluir(req, res).then((result) => {
-      res.status(200).send(result);
-    });
+    integranteDomain
+      .excluir(req.params.id)
+      .then((result) => {
+        res.status(200).send({ status: result });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   } catch (err) {
     res
       .status(500)

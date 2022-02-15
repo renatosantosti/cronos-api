@@ -6,7 +6,7 @@ import servicoDomain from '../domain/servico';
  */
 const listar = (req, res) => {
   try {
-    servicoDomain.listar(req, res).then((result) => {
+    servicoDomain.listar().then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -24,7 +24,7 @@ const listar = (req, res) => {
  */
 const obter = (req, res) => {
   try {
-    servicoDomain.listar(req, res).then((result) => {
+    servicoDomain.obter(req.params.id).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -42,7 +42,7 @@ const obter = (req, res) => {
  */
 const alterar = (req, res) => {
   try {
-    servicoDomain.alterar(req, res).then((result) => {
+    servicoDomain.alterar(req.body.servico).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -60,7 +60,7 @@ const alterar = (req, res) => {
  */
 const criar = (req, res) => {
   try {
-    servicoDomain.criar(req, res).then((result) => {
+    servicoDomain.criar(req.body.servico).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -78,9 +78,14 @@ const criar = (req, res) => {
  */
 const excluir = (req, res) => {
   try {
-    servicoDomain.excluir(req, res).then((result) => {
-      res.status(200).send(result);
-    });
+    servicoDomain
+      .excluir(req.params.id)
+      .then((result) => {
+        res.status(200).send({ status: result });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   } catch (err) {
     res
       .status(500)
