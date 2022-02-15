@@ -6,7 +6,7 @@ import postagemDomain from '../domain/postagem';
  */
 const listar = (req, res) => {
   try {
-    postagemDomain.listar(req, res).then((result) => {
+    postagemDomain.listar().then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -24,7 +24,7 @@ const listar = (req, res) => {
  */
 const obter = (req, res) => {
   try {
-    postagemDomain.listar(req, res).then((result) => {
+    postagemDomain.obter(req.params.id).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -42,9 +42,14 @@ const obter = (req, res) => {
  */
 const alterar = (req, res) => {
   try {
-    postagemDomain.alterar(req, res).then((result) => {
-      res.status(200).send(result);
-    });
+    postagemDomain
+      .alterar(req.body.postagem)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   } catch (err) {
     res
       .status(500)
@@ -60,7 +65,8 @@ const alterar = (req, res) => {
  */
 const criar = (req, res) => {
   try {
-    postagemDomain.criar(req, res).then((result) => {
+    console.log('req.body.postagem >>> ', req.body.postagem);
+    postagemDomain.criar(req.body.postagem).then((result) => {
       res.status(200).send(result);
     });
   } catch (err) {
@@ -78,9 +84,14 @@ const criar = (req, res) => {
  */
 const excluir = (req, res) => {
   try {
-    postagemDomain.excluir(req, res).then((result) => {
-      res.status(200).send(result);
-    });
+    postagemDomain
+      .excluir(req.params.id)
+      .then((result) => {
+        res.status(200).send({ status: result });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   } catch (err) {
     res
       .status(500)

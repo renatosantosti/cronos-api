@@ -1,4 +1,4 @@
-import database from '../../config/database';
+import database from '../config/database';
 
 const prepararModelo = (dado) => {
   return dado;
@@ -56,11 +56,13 @@ const alterar = (servico) => {
       .update(servico)
       .then(
         (result) => {
-          resolve(prepararModelo(result));
+          result
+            ? resolve(obter(servico.id))
+            : reject(`Não existe serviço com id: ${servico.id}`);
         },
         (error) => {
-          console.error('Erro ao atualizar a servico =>', error);
-          reject('Erro ao tentar atualizar a servico:', error);
+          console.error('Erro ao atualizar o serviço =>', error);
+          reject('Erro ao tentar atualizar o serviço:', error);
         }
       );
   });
@@ -76,8 +78,8 @@ const criar = (servico) => {
           resolve(prepararModelo(servico));
         },
         (error) => {
-          console.error('Erro tentar criar servico =>', error);
-          reject('Erro ao tentar criar novo servico:', error);
+          console.error('Erro tentar criar o servico =>', error);
+          reject('Erro ao tentar criar novo o servico:', error);
         }
       );
   });
@@ -87,17 +89,21 @@ const excluir = (id) => {
   return new Promise((resolve, reject) => {
     database('servico')
       .where('id', '=', id)
-      .update({ ativo: false })
+      .update({ status: false })
       .then(
         (result) => {
-          resolve(result ?? false);
+          result
+            ? resolve(result)
+            : reject(
+                `Não foi localizado o serviço com id: ${id} para excluir!`
+              );
         },
         (error) => {
           console.error(
-            'Erro ao ao tentar excluir/desativar servico =>',
+            'Erro ao ao tentar excluir/desativar o servico =>',
             error
           );
-          reject('Erro ao tentar excluir/desativar servico:', error);
+          reject('Erro ao tentar excluir/desativar o servico:', error);
         }
       );
   });

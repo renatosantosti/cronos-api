@@ -1,4 +1,4 @@
-import database from '../../config/database';
+import database from '../config/database';
 
 const prepararModelo = (dado) => {
   return dado;
@@ -56,11 +56,13 @@ const alterar = (integrante) => {
       .update(integrante)
       .then(
         (result) => {
-          resolve(prepararModelo(result));
+          result
+            ? resolve(obter(integrante.id))
+            : reject(`Não existe o integrante com id: ${integrante.id}`);
         },
         (error) => {
-          console.error('Erro ao atualizar a integrante =>', error);
-          reject('Erro ao tentar atualizar a integrante:', error);
+          console.error('Erro ao atualizar o integrante =>', error);
+          reject('Erro ao tentar atualizar o integrante:', error);
         }
       );
   });
@@ -76,8 +78,8 @@ const criar = (integrante) => {
           resolve(prepararModelo(integrante));
         },
         (error) => {
-          console.error('Erro tentar criar integrante =>', error);
-          reject('Erro ao tentar criar novo integrante:', error);
+          console.error('Erro tentar criar o integrante =>', error);
+          reject('Erro ao tentar criar novo o integrante:', error);
         }
       );
   });
@@ -87,17 +89,21 @@ const excluir = (id) => {
   return new Promise((resolve, reject) => {
     database('integrante')
       .where('id', '=', id)
-      .update({ ativo: false })
+      .update({ status: false })
       .then(
         (result) => {
-          resolve(result ?? false);
+          result
+            ? resolve(result)
+            : reject(
+                `Não foi localizado o integrante com id: ${id} para excluir!`
+              );
         },
         (error) => {
           console.error(
-            'Erro ao ao tentar excluir/desativar integrante =>',
+            'Erro ao ao tentar excluir/desativar o integrante =>',
             error
           );
-          reject('Erro ao tentar excluir/desativar integrante:', error);
+          reject('Erro ao tentar excluir/desativar o integrante:', error);
         }
       );
   });

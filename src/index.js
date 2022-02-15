@@ -1,7 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 
-import rotas from './src/routes/index';
+import rotas from './routes/index';
 const port = process.env.PORT || 8080;
 
 const app = express();

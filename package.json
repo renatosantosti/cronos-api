@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./index.js",
-    "build": "rimraf dist && babel ./src/ -s -D -d dist ",
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "build": "npx babel ./src -d dist",
+    "start": "yarn build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,15 +15,17 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "global": "^4.4.0",
     "knex": "^1.0.3",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.2",
     "@babel/node": "^7.16.8",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
-    "eslint": "^8.9.0",
-    "rimraf": "^3.0.2"
+    "eslint": "^8.9.0"
   }
 }
