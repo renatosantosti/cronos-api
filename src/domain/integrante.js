@@ -27,7 +27,15 @@ class Integrante {
       throw new Error('O status não foi informado');
     }
 
-    return { id, nome, foto, email, isAdministrador, senha, status };
+    const integrante = new Integrante();
+    integrante.id = id;
+    integrante.nome = nome;
+    integrante.foto = foto;
+    integrante.email = email;
+    integrante.isAdministrador = isAdministrador;
+    integrante.senha = senha;
+    integrante.status = status;
+    return integrante;
   };
 }
 

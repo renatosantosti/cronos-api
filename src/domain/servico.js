@@ -24,7 +24,13 @@ class Servico {
       throw new Error('O status não foi informado');
     }
 
-    return { id, nome, descricao, status };
+    const servico =  new Servico()
+    servico.id =  id
+    servico.nome =  nome
+    servico.descricao =  descricao
+    servico.status =  status
+
+    return servico;
   };
 }
 

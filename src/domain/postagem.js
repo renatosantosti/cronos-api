@@ -19,7 +19,8 @@ class Postagem {
    * @param {id, titulo, data, modificado, conteudo, integrante, status} params
    */
   static montar = (params = {}) => {
-    const { id, titulo, data, modificado, conteudo, integrante, status } = params;
+    const { id, titulo, data, modificado, conteudo, integrante, status } =
+      params;
     if (!titulo) {
       throw new Error('O título não foi informado');
     }
@@ -32,7 +33,15 @@ class Postagem {
       throw new Error('O status não foi informado');
     }
 
-    return { id, nome, foto, email, isAdministrador, senha, status };
+    const postagem = new Postagem();
+    postagem.id = id;
+    postagem.titulo = titulo;
+    postagem.data = data;
+    postagem.modificado = modificado;
+    postagem.conteudo = conteudo;
+    postagem.integrante = integrante;
+    postagem.status = status;
+    return postagem;
   };
 }
 
