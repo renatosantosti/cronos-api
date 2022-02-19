@@ -1,112 +1,39 @@
-import database from '../config/database';
-
-const prepararModelo = (dado) => {
-  return dado;
-};
-
 /**
- * @description: realiza pesquisa no banco de dados e retorna os serviços cadastrados
- * @returns arrays de serviços
+ * Expoê métodos responsáveis por preparar o domínio para camada inferiores (ex. banco de dados)
+ * ou para camadas superios (ex. serviços ou business logic.)
  */
-const listar = () => {
-  return new Promise((resolve, reject) => {
-    database
-      .select()
-      .from('postagem')
-      .then(
-        (result) => {
-          resolve(result.map((item) => prepararModelo(item)));
-        },
-        (error) => {
-          console.error('Erro ao listar as postagens', error);
-          reject('Erro ao tentar as postagens:', error);
-        }
-      );
-  });
-};
 
-/**
- * @description: realiza pesquisa no banco de dados e retorna os serviços cadastrados
- * @returns arrays de serviços
- */
-const obter = (id) => {
-  return new Promise((resolve, reject) => {
-    database
-      .select()
-      .from('postagem')
-      .where('id', id)
-      .then(
-        (result) => {
-          resolve(result[0] ? prepararModelo(result[0]) : false);
-        },
-        (error) => {
-          console.error('Erro ao listar as postagens', error);
-          reject('Erro ao tentar as postagens:', error);
-        }
-      );
-  });
-};
+class Postagem {
+  constructor() {
+    this.id = 0;
+    this.titulo = '';
+    this.data = new Date();
+    this.modificado = '';
+    this.conteudo = '';
+    this.integrante;
+    this.status = false;
+  }
 
-const alterar = (postagem) => {
-  delete postagem.data;
-  postagem.modificado = new Date();
-  return new Promise((resolve, reject) => {
-    database('postagem')
-      .where('id', '=', postagem.id)
-      .update(postagem)
-      .then(
-        (result) => {
-          result
-            ? resolve(obter(postagem.id))
-            : reject(`Não existe postagem com id: ${postagem.id}`);
-        },
-        (error) => {
-          console.error('Erro ao atualizar a postagem =>', error);
-          reject('Erro ao tentar atualizar a postagem:', error);
-        }
-      );
-  });
-};
+  /**
+   * @description monta e retorna um objeto POCO representando uma postagem
+   * @param {id, titulo, data, modificado, conteudo, integrante, status} params
+   */
+  static montar = (params = {}) => {
+    const { id, titulo, data, modificado, conteudo, integrante, status } = params;
+    if (!titulo) {
+      throw new Error('O título não foi informado');
+    }
 
-const criar = (postagem) => {
-  return new Promise((resolve, reject) => {
-    database('postagem')
-      .insert(postagem)
-      .then(
-        ([id]) => {
-          postagem.id = id;
-          resolve(prepararModelo(postagem));
-        },
-        (error) => {
-          console.error('Erro tentar criar a postagem =>', error);
-          reject('Erro ao tentar criar nova a postagem:', error);
-        }
-      );
-  });
-};
+    if (!conteudo) {
+      throw new Error('O título não foi informado');
+    }
 
-const excluir = (id) => {
-  return new Promise((resolve, reject) => {
-    database('postagem')
-      .where('id', '=', id)
-      .update({ status: false })
-      .then(
-        (result) => {
-          result
-            ? resolve(result)
-            : reject(
-                `Não foi localizada a postagem com id: ${id} para excluir!`
-              );
-        },
-        (error) => {
-          console.error(
-            'Erro ao ao tentar excluir/desativar a postagem =>',
-            error
-          );
-          reject('Erro ao tentar excluir/desativar a postagem:', error);
-        }
-      );
-  });
-};
+    if (status === undefined || status === '') {
+      throw new Error('O status não foi informado');
+    }
 
-export default { obter, listar, criar, alterar, excluir };
+    return { id, nome, foto, email, isAdministrador, senha, status };
+  };
+}
+
+export default Postagem;

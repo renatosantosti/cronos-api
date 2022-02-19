@@ -6,7 +6,7 @@
     "dev": "nodemon --exec babel-node ./src/index.js",
     "build": "npx babel ./src -d dist",
     "start": "yarn build && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest /test"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "@babel/node": "^7.16.8",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
-    "eslint": "^8.9.0"
+    "eslint": "^8.9.0",
+    "jest": "^27.5.1"
   }
 }

@@ -1,4 +1,4 @@
-import integranteDomain from '../domain/integrante';
+import integranteDomain from '../repository/integrante';
 
 /**
  * @description: chama função correspondente no domínio e retorna resultado da listagem

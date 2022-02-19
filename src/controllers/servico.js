@@ -1,4 +1,4 @@
-import servicoDomain from '../domain/servico';
+import servicoDomain from '../repository/servico';
 
 /**
  * @description: chama função correspondente no domínio e retorna resultado da listagem

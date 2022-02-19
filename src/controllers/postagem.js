@@ -1,4 +1,4 @@
-import postagemDomain from '../domain/postagem';
+import postagemDomain from '../repository/postagem';
 
 /**
  * @description: chama função correspondente no domínio e retorna resultado da listagem
